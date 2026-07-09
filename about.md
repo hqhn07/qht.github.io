@@ -11,6 +11,6 @@ Quynh Tran was born in Vietnam and came to the U.S. for her undergraduate study.
 
 ## Contact
 
-For any questions and/or inquiries, please fill this form to send Quynh a secured email. Your address is not logged by this system, but will be attached to the message forwarded from this page.
+For any questions and/or inquiries, please email Quynh directly.
 
 Thank you.

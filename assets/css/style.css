@@ -332,57 +332,20 @@ body.cover-page {
   display: block;
   margin-bottom: 1.5rem;
 }
-.about-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-}
-.form-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.25rem;
-}
-.form-field {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-}
-.form-field label {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 13px;
-  color: var(--text-color);
-}
-.form-field label span {
-  color: var(--muted);
-  font-size: 11px;
-}
-.form-field input,
-.form-field textarea {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 14px;
-  padding: 0.6rem 0.7rem;
-  border: 1px solid #ccc;
-  background: #f2f2f2;
-  color: var(--ink);
-  resize: vertical;
-}
-.form-field input:focus,
-.form-field textarea:focus {
-  outline: 1px solid #999;
-}
-.form-submit {
+.email-button {
+  display: inline-block;
   align-self: flex-start;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
-  padding: 0.5rem 1.5rem;
+  padding: 0.6rem 1.5rem;
   border: 1px solid var(--ink);
   background: var(--paper);
   color: var(--ink);
-  cursor: pointer;
 }
-.form-submit:hover {
+.email-button:hover {
   background: var(--ink);
   color: var(--paper);
+  text-decoration: none;
 }
 @media (max-width: 720px) {
   .about-grid {
