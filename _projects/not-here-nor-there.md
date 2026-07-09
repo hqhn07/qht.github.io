@@ -4,7 +4,7 @@ category: installation
 medium: Scrolls, Light, Threads, Ceramic, Water, Letterpress
 dimensions: Size varies
 year: 2017
-image_count: 17
+image_count: 20
 image_dir: /assets/images/not-here-nor-there-1
 thumb: /assets/images/not-here-nor-there-1/01.jpg
 videos:
