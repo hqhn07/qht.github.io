@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{% include head.html %}
+</head>
+<body class="cover-page">
+{% assign cover_images = site.static_files | where_exp: "f", "f.path contains '/assets/images/cover/'" | sort: "name" %}
+{% assign n = cover_images.size %}
+
+<div class="cover">
+  {% if n > 0 %}
+  {% assign duration = n | times: 5 %}
+  {% assign slot = 100.0 | divided_by: n %}
+  {% assign fade_frac = slot | divided_by: 4.0 %}
+  {% assign hold_end = slot | minus: fade_frac %}
+  <style>
+    @keyframes cover-fade {
+      0% { opacity: 0; }
+      {{ fade_frac }}% { opacity: 1; }
+      {{ hold_end }}% { opacity: 1; }
+      {{ slot }}% { opacity: 0; }
+      100% { opacity: 0; }
+    }
+    .cover-bg img {
+      animation-name: cover-fade;
+      animation-duration: {{ duration }}s;
+      animation-iteration-count: infinite;
+    }
+    {% for img in cover_images %}
+    .cover-bg img:nth-child({{ forloop.index }}) { animation-delay: {{ forloop.index0 | times: 5 }}s; }
+    {% endfor %}
+  </style>
+  <div class="cover-bg" aria-hidden="true">
+    {% for img in cover_images %}
+    <img src="{{ img.path | relative_url }}" alt="">
+    {% endfor %}
+    <div class="cover-scrim"></div>
+  </div>
+  {% endif %}
+
+  <header class="cover-header">
+    <div class="cover-heading">
+      <h1 class="cover-name">{{ site.title }}</h1>
+      <p class="cover-tagline">{{ site.tagline }}</p>
+    </div>
+    <div class="cover-actions">
+      {% include social-links.html %}
+      <a class="view-work" href="{{ '/home/' | relative_url }}">View Work</a>
+    </div>
+  </header>
+</div>
+</body>
+</html>

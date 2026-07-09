@@ -1,0 +1,101 @@
+---
+layout: default
+---
+<article class="project">
+  {% assign count = page.image_count | default: 0 %}
+
+  {% if page.galleries %}
+  {% for g in page.galleries %}
+  {% include gallery-block.html image_dir=page.image_dir images=g.images count=g.count label=g.label label_style=g.label_style title=page.title %}
+  {% if forloop.first %}
+  <header class="project-header">
+    <h1>{{ page.title }}</h1>
+    <dl class="project-meta">
+      {% if page.project_type %}<div><dt class="sr-only">Type</dt><dd>{{ page.project_type }}</dd></div>{% endif %}
+      {% if page.medium %}<div><dt class="sr-only">Medium</dt><dd>{{ page.medium }}</dd></div>{% endif %}
+      {% if page.dimensions %}<div><dt class="sr-only">Dimensions</dt><dd>{{ page.dimensions }}</dd></div>{% endif %}
+      {% if page.year %}<div><dt class="sr-only">Year</dt><dd>{{ page.year }}</dd></div>{% endif %}
+    </dl>
+  </header>
+  <div class="gallery-spacer"></div>
+  {% endif %}
+  {% endfor %}
+
+  {% elsif count > 0 and page.gallery_style == "filmstrip" %}
+  <div class="filmstrip-header">
+    <span class="filmstrip-title">{{ page.gallery_label | default: page.title }}</span>
+    {% if count > 1 %}
+    <div class="filmstrip-nav">
+      <button class="filmstrip-prev" aria-label="Previous images">&lsaquo;</button>
+      <button class="filmstrip-next" aria-label="Next images">&rsaquo;</button>
+    </div>
+    {% endif %}
+  </div>
+  {% if page.gallery_per_view %}
+  {% assign gap_total = page.gallery_per_view | minus: 1 | times: 4 %}
+  {% capture img_style %}width: calc((100% - {{ gap_total }}px) / {{ page.gallery_per_view }}); max-width: none;{% endcapture %}
+  {% endif %}
+  <div class="filmstrip-gallery">
+    <div class="filmstrip-track">
+      {% for i in (1..count) %}
+      {% if i < 10 %}{% assign num = i | prepend: '0' %}{% else %}{% assign num = i | append: '' %}{% endif %}
+      <img{% if img_style %} style="{{ img_style }}"{% endif %} src="{{ page.image_dir | relative_url }}/{{ num }}.jpg" alt="{{ page.title }} — image {{ i }} of {{ count }}" loading="lazy">
+      {% endfor %}
+    </div>
+  </div>
+
+  {% elsif count > 0 %}
+  <div class="project-gallery" data-interval="5000">
+    <div class="gallery-main">
+      {% for i in (1..count) %}
+      {% if i < 10 %}{% assign num = i | prepend: '0' %}{% else %}{% assign num = i | append: '' %}{% endif %}
+      <img class="gallery-slide{% if i == 1 %} active{% endif %}" src="{{ page.image_dir | relative_url }}/{{ num }}.jpg" alt="{{ page.title }} — image {{ i }} of {{ count }}" loading="lazy">
+      {% endfor %}
+      {% if count > 1 %}
+      <button class="gallery-prev" aria-label="Previous image">&lsaquo;</button>
+      <button class="gallery-next" aria-label="Next image">&rsaquo;</button>
+      {% endif %}
+    </div>
+    {% if count > 1 %}
+    <div class="gallery-thumbs">
+      {% for i in (1..count) %}
+      {% if i < 10 %}{% assign num = i | prepend: '0' %}{% else %}{% assign num = i | append: '' %}{% endif %}
+      <img class="gallery-thumb{% if i == 1 %} active{% endif %}" src="{{ page.image_dir | relative_url }}/{{ num }}.jpg" alt="">
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+  {% endif %}
+
+  {% unless page.galleries %}
+  <header class="project-header">
+    <h1>{{ page.title }}</h1>
+    <dl class="project-meta">
+      {% if page.project_type %}<div><dt class="sr-only">Type</dt><dd>{{ page.project_type }}</dd></div>{% endif %}
+      {% if page.medium %}<div><dt class="sr-only">Medium</dt><dd>{{ page.medium }}</dd></div>{% endif %}
+      {% if page.dimensions %}<div><dt class="sr-only">Dimensions</dt><dd>{{ page.dimensions }}</dd></div>{% endif %}
+      {% if page.year %}<div><dt class="sr-only">Year</dt><dd>{{ page.year }}</dd></div>{% endif %}
+    </dl>
+  </header>
+  {% endunless %}
+
+  {% if content and content != "" %}
+  <div class="project-description">
+    {{ content }}
+  </div>
+  {% endif %}
+
+  {% if page.videos %}
+  <div class="project-videos">
+    {% for v in page.videos %}
+    <div class="project-video">
+      <div class="video-embed">
+        <iframe src="https://www.youtube.com/embed/{{ v.id }}" title="{{ page.title }}{% if v.label %} — {{ v.label }}{% endif %}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+</article>
+{% if count > 1 or page.galleries %}<script src="{{ '/assets/js/gallery.js' | relative_url }}" defer></script>{% endif %}
+

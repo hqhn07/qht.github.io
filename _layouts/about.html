@@ -1,0 +1,44 @@
+---
+layout: default
+---
+<article class="page about-page">
+  <div class="about-grid">
+    <div class="about-left">
+      {% if page.title %}<h1 class="page-title">{{ page.title }}</h1>{% endif %}
+      <div class="page-content">
+        {{ content }}
+      </div>
+    </div>
+    <div class="about-right">
+      {% if page.image %}<img class="about-photo" src="{{ page.image | relative_url }}" alt="{{ page.title }}">{% endif %}
+      <form class="about-form" action="https://formsubmit.co/{{ site.email }}" method="POST">
+        <div class="form-row">
+          <div class="form-field">
+            <label for="first_name">First Name <span>(required)</span></label>
+            <input type="text" id="first_name" name="First Name" required>
+          </div>
+          <div class="form-field">
+            <label for="last_name">Last Name <span>(required)</span></label>
+            <input type="text" id="last_name" name="Last Name" required>
+          </div>
+        </div>
+        <div class="form-field">
+          <label for="email">Email Address <span>(required)</span></label>
+          <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-field">
+          <label for="subject">Subject <span>(required)</span></label>
+          <input type="text" id="subject" name="Subject" required>
+        </div>
+        <div class="form-field">
+          <label for="message">Message <span>(required)</span></label>
+          <textarea id="message" name="Message" rows="6" required></textarea>
+        </div>
+        <input type="hidden" name="_subject" value="New message from qhtran.com">
+        <input type="hidden" name="_captcha" value="true">
+        <input type="hidden" name="_next" value="{{ site.url }}{{ '/about/' | relative_url }}">
+        <button type="submit" class="form-submit">Submit</button>
+      </form>
+    </div>
+  </div>
+</article>

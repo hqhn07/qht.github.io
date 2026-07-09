@@ -1,0 +1,35 @@
+{% if include.label and include.label_style == "title" %}
+<h2 class="gallery-title-label">{{ include.label }}</h2>
+{% elsif include.label %}
+<div class="filmstrip-header">
+  <span class="filmstrip-title">{{ include.label }}</span>
+</div>
+{% endif %}
+<div class="project-gallery" data-interval="5000">
+  <div class="gallery-main">
+    {% if include.images %}
+      {% for fname in include.images %}
+      <img class="gallery-slide{% if forloop.first %} active{% endif %}" src="{{ include.image_dir | relative_url }}/{{ fname }}" alt="{{ include.title }} — image {{ forloop.index }}" loading="lazy">
+      {% endfor %}
+    {% else %}
+      {% for i in (1..include.count) %}
+      {% if i < 10 %}{% assign num = i | prepend: '0' %}{% else %}{% assign num = i | append: '' %}{% endif %}
+      <img class="gallery-slide{% if i == 1 %} active{% endif %}" src="{{ include.image_dir | relative_url }}/{{ num }}.jpg" alt="{{ include.title }} — image {{ i }}" loading="lazy">
+      {% endfor %}
+    {% endif %}
+    <button class="gallery-prev" aria-label="Previous image">&lsaquo;</button>
+    <button class="gallery-next" aria-label="Next image">&rsaquo;</button>
+  </div>
+  <div class="gallery-thumbs">
+    {% if include.images %}
+      {% for fname in include.images %}
+      <img class="gallery-thumb{% if forloop.first %} active{% endif %}" src="{{ include.image_dir | relative_url }}/{{ fname }}" alt="">
+      {% endfor %}
+    {% else %}
+      {% for i in (1..include.count) %}
+      {% if i < 10 %}{% assign num = i | prepend: '0' %}{% else %}{% assign num = i | append: '' %}{% endif %}
+      <img class="gallery-thumb{% if i == 1 %} active{% endif %}" src="{{ include.image_dir | relative_url }}/{{ num }}.jpg" alt="">
+      {% endfor %}
+    {% endif %}
+  </div>
+</div>

@@ -1,0 +1,23 @@
+---
+layout: default
+---
+{% assign landing_images = site.static_files | where_exp: "f", "f.path contains '/assets/images/landing-page-image/'" | sort: "name" %}
+
+<div class="home">
+  {% for img in landing_images %}
+  {% assign fname = img.name | downcase %}
+  {% assign caption = "" %}
+  {% for p in site.projects %}
+    {% assign ptitle = p.title | downcase %}
+    {% if fname contains ptitle and caption == "" %}
+      {% capture caption %}{{ p.title }}{% if p.medium %} - {{ p.medium }}{% endif %}{% if p.year %}. {{ p.year }}{% endif %}{% endcapture %}
+    {% endif %}
+  {% endfor %}
+  <figure class="landing-hero">
+    <img src="{{ img.path | relative_url }}" alt="{{ caption | strip_html }}">
+    {% if caption != "" %}<figcaption>{{ caption }}</figcaption>{% endif %}
+  </figure>
+  {% endfor %}
+
+  {{ content }}
+</div>

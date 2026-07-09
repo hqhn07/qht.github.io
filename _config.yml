@@ -1,0 +1,39 @@
+title: Quynh H. Tran
+tagline: "Printmaking · Book Art · Installation"
+description: >-
+  Portfolio of Quynh H. Tran — prints, artist's books, and installation work.
+email: quynh@qhtran.com
+instagram_url: "https://www.instagram.com/"
+linkedin_url: "https://www.linkedin.com/"
+blog_url: "#"
+cv_path: "/assets/cv/quynh-tran-cv.pdf"
+
+baseurl: "/qht.github.io"
+url: "https://hqhn07.github.io"
+
+markdown: kramdown
+permalink: /:title/
+theme: null
+
+collections:
+  projects:
+    output: true
+    permalink: /:name/
+
+defaults:
+  - scope:
+      path: ""
+      type: projects
+    values:
+      layout: project
+  - scope:
+      path: ""
+      type: pages
+    values:
+      layout: page
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - node_modules

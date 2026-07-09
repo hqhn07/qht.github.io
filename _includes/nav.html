@@ -1,0 +1,40 @@
+{% assign installation = site.projects | where: "category", "installation" | sort: "year" | reverse %}
+{% assign books = site.projects | where: "category", "book" | sort: "year" | reverse %}
+{% assign prints = site.projects | where: "category", "print" | sort: "year" | reverse %}
+
+<nav class="site-nav">
+  <ul>
+    <li><a href="{{ '/' | relative_url }}"{% if page.url == '/' %} class="is-active"{% endif %}>Cover</a></li>
+    <li><a href="{{ '/home/' | relative_url }}"{% if page.url == '/home/' %} class="is-active"{% endif %}>Home</a></li>
+    <li><a href="{{ '/artist-statement/' | relative_url }}"{% if page.url == '/artist-statement/' %} class="is-active"{% endif %}>Artist Statement</a></li>
+
+    <li class="has-submenu">
+      <span tabindex="0">Installation</span>
+      <ul class="submenu">
+        {% for p in installation %}
+        <li><a href="{{ p.url | relative_url }}"{% if page.url == p.url %} class="is-active"{% endif %}>{{ p.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </li>
+
+    <li class="has-submenu">
+      <span tabindex="0">Artist's Book</span>
+      <ul class="submenu">
+        {% for p in books %}
+        <li><a href="{{ p.url | relative_url }}"{% if page.url == p.url %} class="is-active"{% endif %}>{{ p.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </li>
+
+    <li class="has-submenu">
+      <span tabindex="0">Print</span>
+      <ul class="submenu">
+        {% for p in prints %}
+        <li><a href="{{ p.url | relative_url }}"{% if page.url == p.url %} class="is-active"{% endif %}>{{ p.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </li>
+
+    <li><a href="{{ '/about/' | relative_url }}"{% if page.url == '/about/' %} class="is-active"{% endif %}>About</a></li>
+  </ul>
+</nav>
